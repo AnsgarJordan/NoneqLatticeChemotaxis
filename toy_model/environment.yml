@@ -1,0 +1,9 @@
+name: kmc-receptor-binding
+channels:
+  - conda-forge
+dependencies:
+  - python=3.10
+  - jax
+  - jaxlib
+  - matplotlib
+
