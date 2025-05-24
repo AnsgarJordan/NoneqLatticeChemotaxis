@@ -1,0 +1,49 @@
+0
+50
+100
+Traceback (most recent call last):
+  File "/project/home24/afj24/Documents/code/NoneqLatticeChemotaxis/lattice_two_node/run_two_node_network_with_varying_couplings.py", line 67, in <module>
+    times, snapshots = model.run_kmc_lattice(t_max=t_max, key=key)
+  File "/project/home24/afj24/Documents/code/NoneqLatticeChemotaxis/lattice_two_node/two_node_network_with_lattice.py", line 92, in run_kmc_lattice
+    lattice, t, key = self.kmc_step(lattice, t, key)
+  File "/project/home24/afj24/Documents/code/NoneqLatticeChemotaxis/lattice_two_node/two_node_network_with_lattice.py", line 80, in kmc_step
+    return jax.lax.cond(total_rate > 0, do_update, no_op)
+  File "/project/home24/afj24/miniconda3/envs/kmc-receptor-binding/lib/python3.10/site-packages/jax/_src/traceback_util.py", line 180, in reraise_with_filtered_traceback
+    return fun(*args, **kwargs)
+  File "/project/home24/afj24/miniconda3/envs/kmc-receptor-binding/lib/python3.10/site-packages/jax/_src/lax/control_flow/conditionals.py", line 306, in cond
+    return _cond(*args, **kwargs)
+  File "/project/home24/afj24/miniconda3/envs/kmc-receptor-binding/lib/python3.10/site-packages/jax/_src/lax/control_flow/conditionals.py", line 278, in _cond
+    out = cond_p.bind(index, *consts, *ops, branches=(false_jaxpr, true_jaxpr))
+  File "/project/home24/afj24/miniconda3/envs/kmc-receptor-binding/lib/python3.10/site-packages/jax/_src/core.py", line 502, in bind
+    return self._true_bind(*args, **params)
+  File "/project/home24/afj24/miniconda3/envs/kmc-receptor-binding/lib/python3.10/site-packages/jax/_src/core.py", line 520, in _true_bind
+    return self.bind_with_trace(prev_trace, args, params)
+  File "/project/home24/afj24/miniconda3/envs/kmc-receptor-binding/lib/python3.10/site-packages/jax/_src/core.py", line 525, in bind_with_trace
+    return trace.process_primitive(self, args, params)
+  File "/project/home24/afj24/miniconda3/envs/kmc-receptor-binding/lib/python3.10/site-packages/jax/_src/core.py", line 1024, in process_primitive
+    return primitive.impl(*args, **params)
+  File "/project/home24/afj24/miniconda3/envs/kmc-receptor-binding/lib/python3.10/site-packages/jax/_src/dispatch.py", line 90, in apply_primitive
+    outs = fun(*args)
+  File "/project/home24/afj24/miniconda3/envs/kmc-receptor-binding/lib/python3.10/site-packages/jax/_src/traceback_util.py", line 180, in reraise_with_filtered_traceback
+    return fun(*args, **kwargs)
+  File "/project/home24/afj24/miniconda3/envs/kmc-receptor-binding/lib/python3.10/site-packages/jax/_src/pjit.py", line 341, in cache_miss
+    pgle_profiler) = _python_pjit_helper(fun, jit_info, *args, **kwargs)
+  File "/project/home24/afj24/miniconda3/envs/kmc-receptor-binding/lib/python3.10/site-packages/jax/_src/pjit.py", line 195, in _python_pjit_helper
+    out_flat, compiled, profiler = _pjit_call_impl_python(*args_flat, **p.params)
+  File "/project/home24/afj24/miniconda3/envs/kmc-receptor-binding/lib/python3.10/site-packages/jax/_src/pjit.py", line 1657, in _pjit_call_impl_python
+    ).compile()
+  File "/project/home24/afj24/miniconda3/envs/kmc-receptor-binding/lib/python3.10/site-packages/jax/_src/interpreters/pxla.py", line 2446, in compile
+    executable = UnloadedMeshExecutable.from_hlo(
+  File "/project/home24/afj24/miniconda3/envs/kmc-receptor-binding/lib/python3.10/site-packages/jax/_src/interpreters/pxla.py", line 2959, in from_hlo
+    xla_executable = _cached_compilation(
+  File "/project/home24/afj24/miniconda3/envs/kmc-receptor-binding/lib/python3.10/site-packages/jax/_src/interpreters/pxla.py", line 2757, in _cached_compilation
+    xla_executable = compiler.compile_or_get_cached(
+  File "/project/home24/afj24/miniconda3/envs/kmc-receptor-binding/lib/python3.10/site-packages/jax/_src/compiler.py", line 473, in compile_or_get_cached
+    return _compile_and_write_cache(
+  File "/project/home24/afj24/miniconda3/envs/kmc-receptor-binding/lib/python3.10/site-packages/jax/_src/compiler.py", line 690, in _compile_and_write_cache
+    executable = backend_compile(
+  File "/project/home24/afj24/miniconda3/envs/kmc-receptor-binding/lib/python3.10/site-packages/jax/_src/profiler.py", line 334, in wrapper
+    return func(*args, **kwargs)
+  File "/project/home24/afj24/miniconda3/envs/kmc-receptor-binding/lib/python3.10/site-packages/jax/_src/compiler.py", line 324, in backend_compile
+    return backend.compile(built_c, compile_options=options)
+KeyboardInterrupt

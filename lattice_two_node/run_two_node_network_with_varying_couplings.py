@@ -8,14 +8,14 @@ import matplotlib.animation as animation
 
 from two_node_network_with_lattice import Lattice_Two_Node
 
-# function to plot the %-bound receptors over varying values of alpha, beta
-def plot_multiple_fraction_bound(datasets):
+def plot_multiple_fraction_bound(datasets, filename='fraction_bound_vs_time.png'):
     """
-    Plot fraction of bound receptors over time for multiple (alpha, beta) values.
+    Plot fraction of bound receptors over time for multiple (alpha, beta) values and save figure.
     
     Parameters:
     - datasets: list of tuples, each tuple contains:
         (snapshots, times, alpha, beta)
+    - filename: name of the file to save the plot (default 'fraction_bound_vs_time.png')
     """
     plt.figure(figsize=(10, 5))
 
@@ -32,7 +32,8 @@ def plot_multiple_fraction_bound(datasets):
     plt.grid(True)
     plt.legend(title="Coupling Parameters")
     plt.tight_layout()
-    plt.show()
+    plt.savefig(filename)
+    plt.close()  # Close the figure to free memory
 
 ## 
 alphas = [0.5, 0.5, 1, 1.5]
