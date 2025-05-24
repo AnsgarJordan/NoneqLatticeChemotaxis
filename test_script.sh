@@ -7,12 +7,11 @@
 # Change to the directory from which the job was submitted
 cd $PBS_O_WORKDIR
 
-# Load the Conda module if needed (some systems require it to initialize conda)
-module load anaconda/2.4.1  # or whichever Anaconda module is available
+# Initialize Conda (specific to Miniforge3)
+source ~/miniforge3/etc/profile.d/conda.sh
 
-# Activate your environment (assumes it's in your home directory or custom path)
-source ~/miniconda3/etc/profile.d/conda.sh
-conda activate my_env
+# Activate your environment
+conda activate test_env
 
 # Run your job command
 python test_script.py
