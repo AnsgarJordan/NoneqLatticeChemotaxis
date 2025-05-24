@@ -17,9 +17,14 @@ def plot_multiple_fraction_bound(datasets, filename='fraction_bound_vs_time.png'
         (snapshots, times, alpha, beta)
     - filename: name of the file to save the plot (default 'fraction_bound_vs_time.png')
     """
+
     plt.figure(figsize=(10, 5))
 
-    for snapshots, times, alpha, beta in datasets:
+    for i, (snapshots, times, alpha, beta) in enumerate(datasets):
+        # Type check
+        if not hasattr(snapshots, 'reshape'):
+            raise TypeError(f"Dataset index {i} has invalid 'snapshots': expected array, got {type(snapshots)}")
+
         # Compute fraction bound for each timepoint
         frac_bound = jnp.mean(snapshots.reshape(len(times), -1), axis=1)
         label = f"α={alpha}, β={beta}"
@@ -33,11 +38,12 @@ def plot_multiple_fraction_bound(datasets, filename='fraction_bound_vs_time.png'
     plt.legend(title="Coupling Parameters")
     plt.tight_layout()
     plt.savefig(filename)
-    plt.close()  # Close the figure to free memory
+    plt.close()
+
 
 ## 
-alphas = [0.5, 0.5, 1, 1.5]
-betas = [0, 1, 0, 0]
+alphas = [1, 0, 4, 0]
+betas = [0, 1, 0, 4]
 
 t_max = 25
 N = 20
@@ -68,4 +74,6 @@ for i in range(len(alphas)):
     times, snapshots = model.run_kmc_lattice(t_max=t_max, key=key)
     datasets.append((alpha, beta, times, snapshots))
 
-    model.make_animation(snapshots, times, ani_name = "animations/animation_beta" + str(beta) + "_alpha" + str(alpha) + ".mp4")
+   # model.make_animation(snapshots, times, ani_name = "animations/animation_beta" + str(beta) + "_alpha" + str(alpha) + ".mp4")
+
+plot_multiple_fraction_bound(datasets=datasets)
