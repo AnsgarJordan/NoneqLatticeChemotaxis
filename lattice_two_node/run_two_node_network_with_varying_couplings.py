@@ -74,6 +74,6 @@ for i in range(len(alphas)):
     times, snapshots = model.run_kmc_lattice(t_max=t_max, key=key)
     datasets.append((alpha, beta, times, snapshots))
 
-   # model.make_animation(snapshots, times, ani_name = "animations/animation_beta" + str(beta) + "_alpha" + str(alpha) + ".mp4")
+    model.make_animation(snapshots, times, ani_name = "animations/animation_beta" + str(beta) + "_alpha" + str(alpha) + ".mp4")
 
 plot_multiple_fraction_bound(datasets=datasets)
