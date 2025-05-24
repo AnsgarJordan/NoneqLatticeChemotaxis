@@ -391,57 +391,91 @@ def calc_dwell_and_switching_times(
         [m_min, m_max],
     )
 
-
 def calc_kstar_binary(
-    k2,
-    k3,
-    kn2,
-    kn3,
-    J,
-    epsilon,
+    k2, k3, kn2, kn3, J, epsilon,
     N=flags_default.N,
     max_steps=int(1e5),
     activity_tolerance=flags_default.activity_threshold,
     k1_tolerance=1e-3,
-    params=None,
+    params=None
 ):
-    k1_th = onp.array(
-        [
-            activity_estimate_binary_search(
-                _, k2, k3, kn2, kn3, J, epsilon, N, int(max_steps / 4)
-            )
-            for _ in [0.2, 0.9]
-        ]
-    )
+    """
+    Find the 'balanced' value of k1 (call it k*) for a nonequilibrium Ising model
+    by binary search over k1, such that the system exhibits a target activity level.
+
+    This function tries to tune k1 so that the activity (fraction of time spent away from a state)
+    is close to a desired threshold (default 0.5).
+
+    Parameters:
+    - k2, k3: forward rates for other states
+    - kn2, kn3: backward rates for other states
+    - J: interaction coupling constant
+    - epsilon: ratio controlling backward k1 (kn1 = k1 * epsilon)
+    - N: lattice size
+    - max_steps: maximum simulation steps
+    - activity_tolerance: tolerance for how close the activity should be to target
+    - k1_tolerance: numerical precision on k1 search
+    - params: extra params for calc_dwell_and_switching_times
+
+    Returns:
+    - k_star: value of k1 that balances the system
+    """
+
+    # Step 1: Estimate two initial guesses of k1 that bracket the target activity (0.2 and 0.9 activity levels)
+    k1_th = onp.array([
+        activity_estimate_binary_search(_, k2, k3, kn2, kn3, J, epsilon, N, int(max_steps / 4))
+        for _ in [0.2, 0.9]
+    ])
+    # Now k1_th contains [k1_low_guess, k1_high_guess]
+
+    # We want to target an activity threshold a_th of 0.5
     a_th = 0.5
     k1_l, k1_r = k1_th[0], k1_th[1]
+
+    # Step 2: Evaluate the current activity at both initial guesses (compute fraction of time spent in up state)
     a_l = calc_dwell_and_switching_times(
-        k1_l, k2, k3, k1_l * epsilon, kn2, kn3, J, N, max_steps, True, **params
+        k1_l, k2, k3, k1_l * epsilon, kn2, kn3, J, N,
+        max_steps, activity_only=True, **params
     )
     a_r = calc_dwell_and_switching_times(
-        k1_r, k2, k3, k1_r * epsilon, kn2, kn3, J, N, max_steps, True, **params
+        k1_r, k2, k3, k1_r * epsilon, kn2, kn3, J, N,
+        max_steps, activity_only=True, **params
     )
 
-    nitr = 0
+    nitr = 0  # iteration counter
+
+    # Step 3: Binary search loop
     while (
-        onp.abs(a_l - a_th) > activity_tolerance
-        or onp.abs(a_r - a_th) > activity_tolerance
+        onp.abs(a_l - a_th) > activity_tolerance or
+        onp.abs(a_r - a_th) > activity_tolerance
     ):
         nitr += 1
         print(f"iteration {nitr}:")
         print("k1_l = {:.6f}, k1_r = {:.6f}".format(k1_l, k1_r))
+
+        # Step 3a: compute midpoint k1
         k1_m = (k1_l + k1_r) / 2
+
+        # Step 3b: estimate the activity at this midpoint
         a_m = calc_dwell_and_switching_times(
-            k1_m, k2, k3, k1_m * epsilon, kn2, kn3, J, N, max_steps, True, **params
+            k1_m, k2, k3, k1_m * epsilon, kn2, kn3, J, N,
+            max_steps, activity_only=True, **params
         )
         print("k1_m = {:.6f}, a_m = {:.2f}".format(k1_m, a_m))
+
+        # Step 3c: decide which half to keep
         if a_m < a_th:
+            # If activity is too low, we need stronger k1 → move left bound up
             k1_l = k1_m
             a_l = a_m
         else:
+            # If activity is too high, need weaker k1 → move right bound down
             k1_r = k1_m
             a_r = a_m
+
+        # Stop if k1 interval is narrow enough
         if onp.abs(k1_l - k1_r) < k1_tolerance:
             break
 
+    # Step 4: return the final k1 estimate (midpoint of last interval)
     return (k1_l + k1_r) / 2
