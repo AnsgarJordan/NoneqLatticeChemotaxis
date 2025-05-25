@@ -51,7 +51,8 @@ class Lattice_Two_Node:
         is_bound = (lattice == 1)
 
         # k_on = rate, c = concentration, J = coupling strength
-        rate_on = self.k_on * self.c * (math.exp(self.J * neighbors)) * is_unbound
+        rate_on = self.k_on * self.c * jnp.exp(self.J * neighbors) * is_unbound
+
         rate_off = self.k_off * is_bound 
 
         rate_off = jnp.clip(rate_off, a_min=0.0)  # avoid negative rates

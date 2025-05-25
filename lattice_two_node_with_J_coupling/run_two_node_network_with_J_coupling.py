@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 from IPython.display import HTML
 import matplotlib.animation as animation
 
-from lattice_two_node_with_J_coupling.two_node_network_with_lattice_J import Lattice_Two_Node
+from two_node_network_with_lattice_J import Lattice_Two_Node
 
 def plot_multiple_fraction_bound(datasets, filename='fraction_bound_vs_time.png'):
     """
