@@ -49,8 +49,8 @@ k1star = 1.5946235656738281
 
 args_balancing_simu = {
     "transient_steps": flags.step_thermalize,
-    "dwell_threshold_factor": 1.5,
-    "switching_threshold_factor": 1.5,
+    "dwell_threshold_factor": 1.0,
+    "switching_threshold_factor": 1.0,
     "prominence_threshold": flags.prominence_threshold,
     "use_kde": True,
     "dataname": None,
