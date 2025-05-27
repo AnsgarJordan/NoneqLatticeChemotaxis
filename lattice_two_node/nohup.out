@@ -1,0 +1,27 @@
+E0524 17:22:46.655007 3372793 pjrt_stream_executor_client.cc:3026] Execution of replica 0 failed: RESOURCE_EXHAUSTED: Failed to get module function: CUDA_ERROR_OUT_OF_MEMORY: out of memory
+0
+50
+100
+150
+200
+250
+300
+350
+400
+450
+0
+50
+100
+150
+jax.errors.SimplifiedTraceback: For simplicity, JAX has removed its internal frames from the traceback of the following exception. Set JAX_TRACEBACK_FILTERING=off to include these.
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/project/home24/afj24/Documents/code/NoneqLatticeChemotaxis/lattice_two_node/run_two_node_network_with_varying_couplings.py", line 74, in <module>
+    times, snapshots = model.run_kmc_lattice(t_max=t_max, key=key)
+  File "/project/home24/afj24/Documents/code/NoneqLatticeChemotaxis/lattice_two_node/two_node_network_with_lattice.py", line 92, in run_kmc_lattice
+    lattice, t, key = self.kmc_step(lattice, t, key)
+  File "/project/home24/afj24/Documents/code/NoneqLatticeChemotaxis/lattice_two_node/two_node_network_with_lattice.py", line 80, in kmc_step
+    return jax.lax.cond(total_rate > 0, do_update, no_op)
+jaxlib.xla_extension.XlaRuntimeError: RESOURCE_EXHAUSTED: Failed to get module function: CUDA_ERROR_OUT_OF_MEMORY: out of memory

@@ -1,3 +1,8 @@
+##
+# Two-Node network with alpha (increase this to increase the chance of binding) 
+# and beta (increasing this decreases the chance of unbinding)
+#
+
 import jax
 import jax.numpy as jnp
 import matplotlib.pyplot as plt

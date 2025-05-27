@@ -1,3 +1,8 @@
+##
+# Two-Node network with alpha (increase this to increase the chance of binding) 
+# and beta (increasing this decreases the chance of unbinding)
+#
+
 
 import jax
 import jax.numpy as jnp
@@ -74,6 +79,6 @@ for i in range(len(alphas)):
     times, snapshots = model.run_kmc_lattice(t_max=t_max, key=key)
     datasets.append((snapshots, times, alpha, beta))
 
-    model.make_animation(snapshots, times, ani_name = "animations/animation_beta" + str(beta) + "_alpha" + str(alpha) + ".mp4")
+    # model.make_animation(snapshots, times, ani_name = "animations/animation_beta" + str(beta) + "_alpha" + str(alpha) + ".mp4")
 
 plot_multiple_fraction_bound(datasets=datasets)
