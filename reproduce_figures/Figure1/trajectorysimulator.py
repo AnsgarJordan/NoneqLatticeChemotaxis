@@ -37,6 +37,15 @@ class TrajectorySimulator:
         )
         return final_state, t_trace, m_trace
 
+
+    def save_results(self):
+        # Return results as a dict instead of list of lists
+        results_dict = {}
+        for i, (t, m) in enumerate(zip(self.t_trace_all, self.m_trace_all)):
+            results_dict[f"t_trace_{i}"] = t
+            results_dict[f"m_trace_{i}"] = m
+        return results_dict
+    
     def run_simulations(self):
         for eb in self.eb_list:
             params = {

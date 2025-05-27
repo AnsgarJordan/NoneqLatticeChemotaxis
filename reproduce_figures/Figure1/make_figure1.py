@@ -124,3 +124,17 @@ sim = TrajectorySimulator(k1star, k2, k3, epsilon, J, N,
 sim.run_simulations()
 print("done simulating")
 sim.plot_results(save_path = "plots/trajectory.png")
+
+results = sim.save_results()
+
+params = {
+    "k1star": sim.k1star,
+    "k2": sim.k2,
+    "k3": sim.k3,
+    "epsilon": sim.epsilon,
+    "J": sim.J,
+    "N": sim.N,
+}
+
+saver = ResultsSaver()
+saver.save(results, params)
