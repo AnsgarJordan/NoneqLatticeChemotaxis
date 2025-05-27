@@ -1,6 +1,6 @@
 from jax import config
 
-param_config.update("jax_enable_x64", True)
+config.update("jax_enable_x64", True)
 import jax.numpy as np
 from jax import lax
 import numpy as onp
@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 import argparse, os
 
 import ising_neq_v6_scan_functions_lax as ising
-import reproduce_figures.Figure1.param_config as param_config
+import param_config
 from dwelltimeplotter import DwellTimePlotter
 from results_saver import ResultsSaver
 from trajectorysimulator import TrajectorySimulator
@@ -118,6 +118,9 @@ args_evaluating = {
 # plotter.plot_switching_times(save_path = "plots/switch_time.png")
 
 # simulate trajectories 
-sim = TrajectorySimulator(k1star, k2, k3, epsilon, J, N)
+print("simulating")
+sim = TrajectorySimulator(k1star, k2, k3, epsilon, J, N,
+                          max_steps=2, transient_steps=2)
 sim.run_simulations()
+print("done simulating")
 sim.plot_results(save_path = "plots/trajectory.png")
