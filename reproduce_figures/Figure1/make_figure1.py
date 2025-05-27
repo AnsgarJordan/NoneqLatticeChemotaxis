@@ -82,58 +82,58 @@ args_evaluating = {
     "return_thresholds": True,
 }
 
-# # Step 2: Run the simulation for the chosen k1star and obtain dwell/switch times  
-# results = ising.calc_dwell_and_switching_times(
-#     k1star,
-#     k2,
-#     k3,
-#     k1star * epsilon,
-#     k2 * epsilon,
-#     k3 * epsilon,
-#     J,
-#     N,
-#     **args_evaluating,
-# )
+# Step 2: Run the simulation for the chosen k1star and obtain dwell/switch times  
+results = ising.calc_dwell_and_switching_times(
+    k1star,
+    k2,
+    k3,
+    k1star * epsilon,
+    k2 * epsilon,
+    k3 * epsilon,
+    J,
+    N,
+    **args_evaluating,
+)
 
-# # save all of the parameters to a file 
-# params = {
-#     "k1star": k1star,
-#     "k2": k2,
-#     "k3": k3,
-#     "epsilon": epsilon,
-#     "J": J,
-#     "N": N,
-#     **args_evaluating,
-# }
-
-# saver = ResultsSaver()
-# saver.save(results, params)
-
-# t_dwell_up, t_dwell_down = onp.array(results[0][0]), onp.array(results[0][1])
-# t_switch_up, t_switch_down = onp.array(results[1][0]), onp.array(results[1][1])
-
-# # plot the dwell times etc 
-# plotter = DwellTimePlotter(t_dwell_up, t_dwell_down, t_switch_up, t_switch_down)
-# plotter.plot_dwell_times(save_path = "plots/dwell_time.png")            # This opens the plot window
-# plotter.plot_switching_times(save_path = "plots/switch_time.png")
-
-# simulate trajectories 
-print("simulating")
-sim = TrajectorySimulator(k1star, k2, k3, epsilon, J, N)
-sim.run_simulations()
-print("done simulating")
-sim.plot_results(save_path = "plots/trajectory.png")
-
-results = sim.save_results()
-
+# save all of the parameters to a file 
 params = {
-    "k1star": sim.k1star,
-    "k2": sim.k2,
-    "k3": sim.k3,
-    "epsilon": sim.epsilon,
-    "J": sim.J,
-    "N": sim.N,
+    "k1star": k1star,
+    "k2": k2,
+    "k3": k3,
+    "epsilon": epsilon,
+    "J": J,
+    "N": N,
+    **args_evaluating,
 }
 
 saver = ResultsSaver()
 saver.save(results, params)
+
+t_dwell_up, t_dwell_down = onp.array(results[0][0]), onp.array(results[0][1])
+t_switch_up, t_switch_down = onp.array(results[1][0]), onp.array(results[1][1])
+
+# plot the dwell times etc 
+plotter = DwellTimePlotter(t_dwell_up, t_dwell_down, t_switch_up, t_switch_down)
+plotter.plot_dwell_times(save_path = "plots/dwell_time.png")            # This opens the plot window
+plotter.plot_switching_times(save_path = "plots/switch_time.png")
+
+# simulate trajectories 
+# print("simulating")
+# sim = TrajectorySimulator(k1star, k2, k3, epsilon, J, N)
+# sim.run_simulations()
+# print("done simulating")
+# sim.plot_results(save_path = "plots/trajectory.png")
+
+# results = sim.save_results()
+
+# params = {
+#     "k1star": sim.k1star,
+#     "k2": sim.k2,
+#     "k3": sim.k3,
+#     "epsilon": sim.epsilon,
+#     "J": sim.J,
+#     "N": sim.N,
+# }
+
+# saver = ResultsSaver()
+# saver.save(results, params)
