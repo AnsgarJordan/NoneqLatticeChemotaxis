@@ -119,8 +119,7 @@ args_evaluating = {
 
 # simulate trajectories 
 print("simulating")
-sim = TrajectorySimulator(k1star, k2, k3, epsilon, J, N,
-                          max_steps=2, transient_steps=2)
+sim = TrajectorySimulator(k1star, k2, k3, epsilon, J, N)
 sim.run_simulations()
 print("done simulating")
 sim.plot_results(save_path = "plots/trajectory.png")
