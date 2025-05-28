@@ -1,0 +1,19 @@
+{
+    "k1star": 1.5946235656738281,
+    "k2": 1.0,
+    "k3": 0.5,
+    "epsilon": 0.0,
+    "J": 1.18,
+    "N": 6,
+    "max_steps": 10,
+    "activity_only": false,
+    "transient_steps": 10,
+    "dwell_threshold_factor": 1.5,
+    "switching_threshold_factor": 1.5,
+    "prominence_threshold": 0.01,
+    "use_kde": true,
+    "dataname": null,
+    "random_seed": 97,
+    "m_thresholds": null,
+    "return_thresholds": true
+}

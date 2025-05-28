@@ -94,6 +94,7 @@ results = ising.calc_dwell_and_switching_times(
     N,
     **args_evaluating,
 )
+print("here")
 
 # save all of the parameters to a file 
 params = {
@@ -105,14 +106,17 @@ params = {
     "N": N,
     **args_evaluating,
 }
-
+print("here1")
 saver = ResultsSaver()
-saver.save(results, params)
+results_dict = ising.convert_results_to_dict(results)
+saver.save(results_dict, params)
 
+print("here2")
 t_dwell_up, t_dwell_down = onp.array(results[0][0]), onp.array(results[0][1])
 t_switch_up, t_switch_down = onp.array(results[1][0]), onp.array(results[1][1])
-
+print("here3")
 # plot the dwell times etc 
+print(results)
 plotter = DwellTimePlotter(t_dwell_up, t_dwell_down, t_switch_up, t_switch_down)
 plotter.plot_dwell_times(save_path = "plots/dwell_time.png")            # This opens the plot window
 plotter.plot_switching_times(save_path = "plots/switch_time.png")

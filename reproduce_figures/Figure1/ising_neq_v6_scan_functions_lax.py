@@ -485,3 +485,16 @@ def calc_kstar_binary(
 
     # Step 4: return the final k1 estimate (midpoint of last interval)
     return (k1_l + k1_r) / 2
+
+def convert_results_to_dict(results):
+    results_dict = {
+        "t_dwell_up": results[0][0],
+        "t_dwell_down": results[0][1],
+        "t_switching_up": results[1][0],
+        "t_switching_down": results[1][1],
+        "m_counts": results[2][0],
+        "m_bin_edges": results[2][1],
+        "m_min": results[3][0],
+        "m_max": results[3][1],
+    }
+    return results_dict

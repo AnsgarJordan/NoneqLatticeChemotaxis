@@ -15,7 +15,7 @@ class TrajectorySimulator:
         self.transient_steps = transient_steps
         self.max_steps = max_steps
 
-        self.eb_list = onp.array([-0.2, 0, 0.2])
+        self.eb_list = onp.array([-0.1, 0, 0.1])
         self.t_trace_all = []
         self.m_trace_all = []
 

@@ -9,6 +9,10 @@ class DwellTimePlotter:
         self.t_switch_down = t_switch_down
 
     def plot_dwell_times(self, save_path=None):
+
+        if self.t_dwell_up is None or self.t_dwell_down is None:
+            raise ValueError("Dwell time data not provided")
+
         fig, ax = plt.subplots(figsize=(6, 5), tight_layout=True)
         t_plot_max = (self.t_dwell_up.mean() + self.t_dwell_down.mean()) * 4
         bins = np.linspace(0, t_plot_max, 20)
