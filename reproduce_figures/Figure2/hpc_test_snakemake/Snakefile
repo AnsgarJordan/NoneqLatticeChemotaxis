@@ -1,0 +1,14 @@
+# Snakefile
+deltaG_values = [i for i in range(8)]  # indices 0 to 7
+
+rule all:
+    input:
+        expand("results/switch_{i}.npz", i=deltaG_values)
+
+rule run_switching_sim:
+    output:
+        "results/switch_{i}.npz"
+    params:
+        idx="{i}"
+    shell:
+        "python run_sim.py {params.idx}"

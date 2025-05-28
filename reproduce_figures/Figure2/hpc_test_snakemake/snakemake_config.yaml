@@ -1,0 +1,15 @@
+executor: pbs
+jobs: 100
+
+default-resources:
+  - mem=8
+  - walltime=1:00
+  - ncpus=1
+
+set-resources:
+  gpu_job:  # this must match a rule name
+    - mem=4
+    - walltime=5:00
+    - ncpus=1
+    - ngpus=1
+    - gpu_type=RX6000  # comment this line out if not used
